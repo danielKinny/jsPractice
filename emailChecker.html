@@ -33,6 +33,7 @@
 
         inputBox.addEventListener("input", (event) => {
             const value = event.target.value;
+            let text = "";
             const valid = (value) => {
                 let whiteSpacesValid = true;
                 for (let i = 0; i < value.length; i++) {
@@ -41,12 +42,23 @@
                     }
                 }
                 
-                if (!value.endsWith('gmail.com')) { document.getElementById("errorMessage").innerHTML = "not a gmail address"; }
-                else if (!whiteSpacesValid){ document.getElementById("errorMessage").innerHTML = "no whitespaces allowed" }
-                else { return true; } return false;
+                if (!value.endsWith('gmail.com')) {
+                    text = "not a gmail address"; 
+                }else if (!whiteSpacesValid){
+                     text = "no whitespaces allowed" 
+                    } else {
+                        text ="";
+                        return true;
+                     } return false;
             };
 
-            button.disabled = !valid(value);
+            if ( value.length > 0){
+                button.disabled = !valid(value);
+                errorBox.innerHTML = text;
+            } else {
+                button.disabled = true;
+                errorBox.innerHTML = "";
+            }
         });
     </script>
 </body>
