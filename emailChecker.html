@@ -21,11 +21,13 @@
             <input type="text" id="inputBox" placeholder="xxxxxxx@gmail.com etc.">
             <input type="button" id="button" value="Enter">
         </form>
+        <p id="errorMessage"></p>
     </div>
 
     <script>
         const inputBox = document.getElementById("inputBox");
         const button = document.getElementById("button");
+        const errorBox = document.getElementById("errorMessage");
 
         button.disabled = true;
 
@@ -38,7 +40,10 @@
                         whiteSpacesValid = false;
                     }
                 }
-                return value.endsWith('gmail.com') && whiteSpacesValid;
+                
+                if (!value.endsWith('gmail.com')) { document.getElementById("errorMessage").innerHTML = "not a gmail address"; }
+                else if (!whiteSpacesValid){ document.getElementById("errorMessage").innerHTML = "no whitespaces allowed" }
+                else { return true; } return false;
             };
 
             button.disabled = !valid(value);
